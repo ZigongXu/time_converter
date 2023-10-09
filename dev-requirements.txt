@@ -1,0 +1,13 @@
+numpy
+python-dateutil
+tqdm
+requests
+pandas
+
+pytest
+pytest-cov
+numpydoc
+Sphinx
+
+
+spiceypy

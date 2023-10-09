@@ -18,6 +18,7 @@ that is baked in to the library and needs to be updated occasionally.
 
 As Johan has since left the space science field, this library is no longer under active development - so use it at
 your own risk.
+From 2023.10.08, an updated version (mainly updating the LND datetime file to support more lunar days) is available by Zigong Xu. This is package is available again for support LND_loader. All the gitlab link in this package is inactive since the server was shutted down.
 
 Especially if very high accuracy (on the order of a few seconds or better) is required and/or the dependency on 
 compiling the SPICE library is not an issue, I would instead recommend to use SPICE directly for MSL SCLK conversions.

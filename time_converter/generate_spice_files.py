@@ -3,7 +3,8 @@ import datetime as dt
 import math
 import pandas as pd
 
-SPICE_KERNELS_PATH = '/home/asterix/forstner/git/spiceminer/data'
+SPICE_KERNELS_PATH = '/Volumes/ZigongX_5T/LND/spice/data'
+#update on 2023-10-08, for Zigong's new version script to generate change4 local time.
 
 spice.furnsh('{}/base/spk/planets/de430.bsp'.format(SPICE_KERNELS_PATH))
 spice.furnsh('{}/base/lsk/naif0011.tls'.format(SPICE_KERNELS_PATH))
@@ -24,7 +25,7 @@ def get_change4_localtime(time):
     return get_localtime(time, moon, math.radians(177.6))
 
 if __name__ == '__main__':
-    index = pd.date_range(freq='30min', start=dt.datetime(2018, 12, 22, 16), end=dt.datetime(2022, 1, 1))
+    index = pd.date_range(freq='30min', start=dt.datetime(2018, 12, 22, 16), end=dt.datetime(2032, 1, 1))
     localtimes = pd.Series([get_change4_localtime(val) for val in index], index=index)
 
     datetimes = pd.Series([dt.datetime.combine(dt.date(2019, 1, 1), val) for val in localtimes], index=index)
