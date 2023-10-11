@@ -79,11 +79,13 @@ Chang'E 4's landing site:
 | Local solar time at Chang'E 4  | `1, datetime.time(7, 32, 30)` | `ce4lst`   |
 
 **Cautions** 2023-10-10.
-A unkonw source bug appear when using lunarday 1 as the input of LNDData(1) and Time(1, dt(),'ce4lst'). It appears when we use first lunar day, the spice package return a empty result and cause annoying IndexError. I suspect it might be related to the spiceypy version. The older version could support this but in the current version (spiceypy==6.0.0) the unwelcome bug appear. I might be able to fixed this from source but it is unnessceary and time consuming. What I propose is when using the lunarday as the input time or when you construct ce4lst Time variable, add extra 1 to the lunar. Like the following:
+Found an not-yet-solve bug when using lunarday equal to 1 as the input of LNDData(1) and Time(1, dt(),'ce4lst'). It appears when we using 1 as the lunar day input, the spiceypy return a empty cell and cause an IndexError. This issue should relat to the version of spiceypy since the original time_converter worked. The current version is spiceypy==6.0.0. I propose that when using the lunarday as the input time or when constructing ce4lst Time variable, add extra 1 to the input, like following:
 ```
 Lunarday = 1
 Data = LNDData(Lunarday + 1)
-or 
+
+**Or**
+
 Time((Lunarday + 1, dt()),'ce4lst')
 ```
-By doing so, I avoid change the Time_converter package and fixed the issues. Just need to keep in mind this weird usage.
+By doing so, I avoid changing the Time_converter package but fix the error when using time_converter. A weird usage need to keep in mind.
