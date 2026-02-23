@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 setup(
     name='lnd_time_converter',
 
-    version='2.1.2',
+    version='2.1.3',
 
     description='A Python class that allows for convenient conversion between different date and time formats/units',
     long_description=long_description,
