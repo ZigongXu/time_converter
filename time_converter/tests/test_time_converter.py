@@ -28,7 +28,7 @@ def test_consistency():
     assert Time(2018.5, 'decimalyear').to('decimalyear') == approx(2018.5)
     assert Time(1517742867, 'posix').to('posix') == 1517742867
     lunarday = 1
-    ce4lst = Time((lunarday+1, dt.time(8, 30)), 'ce4lst').to('ce4lst')
+    ce4lst = Time((lunarday, dt.time(8, 30)), 'ce4lst').to('ce4lst')
     assert ce4lst[0] == lunarday
     assert abs(dt.datetime.combine(dt.date.today(), ce4lst[1]) - dt.datetime.combine(dt.date.today(), dt.time(8, 30))) < dt.timedelta(minutes=1)
 
@@ -45,7 +45,7 @@ def test_values():
 
     time = Time(dt.datetime(2019, 3, 20))
     lunarday = 3
-    assert time.to('ce4lst') == (lunarday + 1, dt.time(22, 49, 2))
+    assert time.to('ce4lst') == (lunarday, dt.time(22, 49, 2))
 
 
 def test_values_reverse():
@@ -56,9 +56,9 @@ def test_values_reverse():
 
     if spice is not None:
         lunarday = 1
-        assert Time((lunarday + 1, dt.time(0, 0)), 'ce4lst').to('dt') == dt.datetime(2018, 12, 22, 16, 25, 51, 600000)
-        assert Time((lunarday + 1, dt.time(23, 59, 59)), 'ce4lst').to('dt') == dt.datetime(2019, 1, 21, 7, 3, 44, 200000)
-        assert Time((10, dt.time(23, 59, 59)), 'ce4lst').to('dt') == dt.datetime(2019, 10, 13, 20, 50, 37, 900000)
+        assert Time((lunarday, dt.time(0, 0)), 'ce4lst').to('dt') == dt.datetime(2018, 12, 22, 16, 25, 51, 600000)
+        assert Time((lunarday, dt.time(23, 59, 59)), 'ce4lst').to('dt') == dt.datetime(2019, 1, 21, 7, 3, 50, 600000)
+        assert Time((10, dt.time(23, 59, 59)), 'ce4lst').to('dt') == dt.datetime(2019, 10, 13, 20, 50, 44, 300000)
     else:
         assert Time((1, dt.time(0, 0)), 'ce4lst').to('dt') == dt.datetime(2018, 12, 22, 16, 30)
         assert Time((1, dt.time(23, 59, 59)), 'ce4lst').to('dt') == dt.datetime(2019, 1, 21, 7, 30)

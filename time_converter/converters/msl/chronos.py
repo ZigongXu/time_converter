@@ -42,10 +42,10 @@ def _load_sclk_data(filename=os.path.join(os.path.dirname(__file__), 'msl.tsc'))
         data = np.genfromtxt(filename, dtype=(float, dt.datetime, float, float), skip_header=skip_header, max_rows=max_rows,
                              unpack=False,
                              converters={
-                                 0: np.float,
+                                 0: float,
                                  1: lambda x: dt.datetime.strptime(x.decode('ascii'), "%Y-%jT%H:%M:%S.%f"),
-                                 2: np.float,
-                                 3: np.float
+                                 2: float,
+                                 3: float
                              })
         sclk, utc, dut, sclkrate = data['f0'], data['f1'], data['f2'], data['f3']
         sclk_data = sclk, utc, dut, sclkrate

@@ -54,7 +54,12 @@ def datetime_to_solarday_number(date, startdate, body, longitude, day_cache=None
 
     if len(day_cache) == 0 or day_cache[-1] < date:
         interval = spice.Cell_Double(2)
-        begindate = startdate if len(day_cache) == 0 else day_cache[-1]
+        if len(day_cache) == 0:
+            # Start search 1 day after startdate to skip any midnight crossing that
+            # coincides with or immediately follows the start of the first solar day.
+            begindate = startdate + dt.timedelta(days=1)
+        else:
+            begindate = day_cache[-1]
         spice.wninsd(spice.datetime2et(begindate), spice.datetime2et(date + dt.timedelta(days=60)), interval)
         result = spice.gfposc('SUN', 'IAU_{}'.format(body), 'NONE', body, 'LATITUDINAL', 'LONGITUDE',
                               '=', math.radians(longitude + 180), 0, 60, 750, interval)
@@ -82,7 +87,12 @@ def lst_to_datetime(solarday, lst, startdate, body, longitude, day_cache=None):
 
     if len(day_cache) < solarday:
         interval = spice.Cell_Double(2)
-        begindate = startdate if len(day_cache) == 0 else day_cache[-1]
+        if len(day_cache) == 0:
+            # Start search 1 day after startdate to skip any midnight crossing that
+            # coincides with or immediately follows the start of the first solar day.
+            begindate = startdate + dt.timedelta(days=1)
+        else:
+            begindate = day_cache[-1]
         spice.wninsd(spice.datetime2et(begindate),
                      spice.datetime2et(begindate + dt.timedelta(days=30) * (solarday - len(day_cache))), interval)
         result = spice.gfposc('SUN', 'IAU_{}'.format(body), 'NONE', body, 'LATITUDINAL', 'LONGITUDE',
