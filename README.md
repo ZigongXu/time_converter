@@ -1,4 +1,4 @@
-# `time_converter` [![build status](https://gitlab.physik.uni-kiel.de/ET/time_converter/badges/master/build.svg)](https://gitlab.physik.uni-kiel.de/ET/time_converter/commits/master) [![coverage report](https://gitlab.physik.uni-kiel.de/ET/time_converter/badges/master/coverage.svg)](http://et.page.physik.uni-kiel.de/time_converter/coverage/)
+# `time_converter`
 
 A Python class that allows for convenient conversion between different date and time formats and units.
 The library supports both general-purpose Earth-based time units (such as Python's `datetime` type, Day-of-year or
@@ -7,27 +7,26 @@ missions. It can be easily extended to support additional units.
 
 ## Note
 
-`time_converter` was developed in 2019 by Johan von Forstner while he was working on the MSL and LND missions,
-with the goal of creating a simple API for time unit conversions with little external dependencies.
+This package is a maintained fork of the original [`time-converter`](https://pypi.org/project/time-converter/)
+by Johan von Forstner, who developed it in 2019 while working on the MSL and LND missions. As Johan has since left
+the space science field, the original package is no longer actively maintained. This fork is actively maintained by
+Zigong Xu and is the recommended version for use with `LND_loader` and Chang'e 4 data analysis.
 
-The conversion between spacecraft clock and UTC is based on a
-[pure Python implementation](https://gitlab.physik.uni-kiel.de/ET/time_converter/-/blob/master/time_converter/converters/msl/chronos.py)
-of the SCLK kernel functionality from NASA's SPICE library, together with the
-[SCLK kernel file](https://gitlab.physik.uni-kiel.de/ET/time_converter/-/blob/master/time_converter/converters/msl/msl.tsc)
-that is baked in to the library and needs to be updated occasionally.
+Changes from the original:
+- Updated Chang'E 4 local time data (`change4_localtime.dat`) to support lunar days through 2032
+- Fixed lunar day off-by-one bug with `spiceypy >= 6.0.0`: `lunarday=1` now works as direct input
+- Fixed NumPy compatibility (`np.float` removed in NumPy 1.20+)
 
-As Johan has since left the space science field, this library is no longer under active development - so use it at
-your own risk.
-From 2023.10.08, an updated version (mainly updating the LND datetime file to support more lunar days) is available by Zigong Xu. This is package is available again for support LND_loader. All the gitlab link in this package is inactive since the server was shutted down.
+The conversion between spacecraft clock and UTC is based on a pure Python reimplementation of the SCLK kernel
+functionality from NASA's SPICE library, together with the SCLK kernel file (`msl.tsc`) baked into the library.
 
-Especially if very high accuracy (on the order of a few seconds or better) is required and/or the dependency on 
-compiling the SPICE library is not an issue, I would instead recommend to use SPICE directly for MSL SCLK conversions.
-In Python, this can be done with [SpiceyPy](https://github.com/AndrewAnnex/SpiceyPy) or with one of the available
-wrapper libraries (e.g., [ET SPICE](https://gitlab.physik.uni-kiel.de/ET/et_spice)).
+Especially if very high accuracy (on the order of a few seconds or better) is required and/or the dependency on
+compiling the SPICE library is not an issue, I would instead recommend using SPICE directly for MSL SCLK conversions.
+In Python, this can be done with [SpiceyPy](https://github.com/AndrewAnnex/SpiceyPy).
 
 ## Installation
-```python
-pip3 install time_converter
+```bash
+pip install lnd-time-converter
 ```
 
 ## Usage

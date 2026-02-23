@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='time_converter',
+    name='lnd-time-converter',
 
     version='2.1.2',
 
