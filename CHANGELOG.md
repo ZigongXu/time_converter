@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-02-22 — v2.1.3 published to PyPI as `lnd_time_converter`
+
+Released to PyPI at https://pypi.org/project/lnd-time-converter/
+
+- Renamed PyPI distribution from `time_converter` to `lnd_time_converter` to
+  distinguish this maintained fork from the original unmaintained package.
+  Import interface (`from time_converter import Time`) remains unchanged.
+- Install with: `pip install lnd_time_converter`
+
+---
+
 ## 2026-02-22 — Bug fixes for NumPy compatibility and Chang'E 4 lunar day offset
 
 ### Problem 1: `np.float` removed in NumPy 1.20+
